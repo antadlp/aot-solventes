@@ -396,5 +396,37 @@ class herramientas(object):
         
         
         return pd.DataFrame(dic)
+    
+    
+    def xyz2df(self, path):
 
+        dic = {}
+        dic['symbol'] = {}
+        dic['x'] = {}
+        dic['y'] = {}
+        dic['z'] = {}
+        
+        F = open(path, 'r')
+        line =  F.readline()
+        atoms = float(line.split()[0])
+        line = next(F)
+
+        i = 1
+        for line in F:
+            
+            symbol = line.split()[0]
+            x = float(line.split()[1])
+            y = float(line.split()[2])
+            z = float(line.split()[3])
+            
+            dic['symbol'][i] = symbol
+            dic['x'][i] = x
+            dic['y'][i] = y
+            dic['z'][i] = z
+            
+            if i >= atoms:
+                break
+            i+=1
+
+        return pd.DataFrame(dic)
 
